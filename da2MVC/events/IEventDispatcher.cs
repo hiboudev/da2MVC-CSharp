@@ -8,8 +8,8 @@ namespace da2mvc.events
 {
     public interface IEventDispatcher
     {
-        event EventHandler MyEventHandler;
+        event EventHandler MvcEventHandler;
 
-        void dispatchEvent(BaseEventArgs args);
+        void DispatchEvent(BaseEventArgs args);
     }
 }

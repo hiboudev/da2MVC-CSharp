@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="command\ICommand.cs" />
     <Compile Include="events\BaseEventArgs.cs" />
+    <Compile Include="events\EventDispatcher.cs" />
     <Compile Include="events\IEventDispatcher.cs" />
     <Compile Include="injection\CommandMapping.cs" />
     <Compile Include="injection\Injector.cs" />

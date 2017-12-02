@@ -48,9 +48,6 @@ namespace da2mvc.injection
                 MapType(type, type, isSingleton);
             }
 
-            /*
-             * Need to be called before to get view instances.
-             */
             public void MapView (Type viewType, Type mediatorType, bool isSingleton = false)
             {
                 if (!typeof(IComponent).IsAssignableFrom(viewType))
@@ -247,7 +244,7 @@ namespace da2mvc.injection
                 if (instance is IEventDispatcher)
                 {
                     IEventDispatcher dispatcher = (IEventDispatcher)instance;
-                    dispatcher.MyEventHandler += MainEventHandler;
+                    dispatcher.MvcEventHandler += MainEventHandler;
                 }
 
                 /*
