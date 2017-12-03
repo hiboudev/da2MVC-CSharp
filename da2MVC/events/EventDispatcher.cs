@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace da2MVC.events
 {
-    class EventDispatcher : IEventDispatcher
+    public class EventDispatcher : IEventDispatcher
     {
         public event EventHandler MvcEventHandler;
 
