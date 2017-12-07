@@ -1,13 +1,13 @@
-﻿using MVC_Framework.injection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using da2mvc.events;
 using System.ComponentModel;
+using da2mvc.injection;
 
-namespace MVC_Framework.view
+namespace da2mvc.view
 {
     public class BaseMediator:IMediator//<ViewType> : IMediator<ViewType> where ViewType : IComponent
     {

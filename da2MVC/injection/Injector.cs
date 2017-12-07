@@ -1,6 +1,4 @@
-﻿using MVC_Framework.injection;
-using MVC_Framework.view;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using da2mvc.command;
 using da2mvc.events;
+using da2mvc.view;
 
 namespace da2mvc.injection
 {

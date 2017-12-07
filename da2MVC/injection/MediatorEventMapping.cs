@@ -1,11 +1,11 @@
-﻿using MVC_Framework.view;
+﻿using da2mvc.view;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC_Framework.injection
+namespace da2mvc.injection
 {
     public class MediatorEventMapping
     {

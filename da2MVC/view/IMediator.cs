@@ -1,13 +1,13 @@
-﻿using MVC_Framework.injection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using da2mvc.events;
+using da2mvc.injection;
 
-namespace MVC_Framework.view
+namespace da2mvc.view
 {
     public delegate void EventListener(BaseEventArgs args);
 
