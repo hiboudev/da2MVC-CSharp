@@ -8,6 +8,7 @@ namespace da2mvc.framework.model
     {
         public const string EVENT_ITEMS_ADDED = "itemsAdded";
         public const string EVENT_ITEMS_REMOVED = "itemsRemoved";
+        public const string EVENT_CLEARED = "cleared";
 
         public List<ModelType> Items { get; } = new List<ModelType>();
 
@@ -27,6 +28,13 @@ namespace da2mvc.framework.model
         {
             Items.Remove(model);
             DispatchEvent(new CollectionEventArgs<ModelType>(EVENT_ITEMS_REMOVED, this, new ModelType[] { model }));
+        }
+
+        public void Clear()
+        {
+            var itemsCopy = Items.ToArray();
+            Items.Clear();
+            DispatchEvent(new CollectionEventArgs<ModelType>(EVENT_CLEARED, this, itemsCopy));
         }
 
         public ModelType Get(int id)
