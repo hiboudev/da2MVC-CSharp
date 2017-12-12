@@ -12,25 +12,25 @@ namespace da2mvc.framework.model
 
         public List<ModelType> Items { get; } = new List<ModelType>();
 
-        public void Add(ModelType model)
+        virtual public void Add(ModelType model)
         {
             Items.Add(model);
             DispatchEvent(new CollectionEventArgs<ModelType>(EVENT_ITEMS_ADDED, this, new ModelType[] { model }));
         }
 
-        public void AddRange(List<ModelType> models)
+        virtual public void AddRange(List<ModelType> models)
         {
             Items.AddRange(models);
             DispatchEvent(new CollectionEventArgs<ModelType>(EVENT_ITEMS_ADDED, this, models.ToArray()));
         }
-        
-        public void Remove(ModelType model)
+
+        virtual public void Remove(ModelType model)
         {
             Items.Remove(model);
             DispatchEvent(new CollectionEventArgs<ModelType>(EVENT_ITEMS_REMOVED, this, new ModelType[] { model }));
         }
 
-        public void Clear()
+        virtual public void Clear()
         {
             var itemsCopy = Items.ToArray();
             Items.Clear();
