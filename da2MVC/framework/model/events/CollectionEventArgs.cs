@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace da2mvc.framework.model.events
 {
-    class CollectionEventArgs <ModelType>: BaseEventArgs where ModelType : IModel
+    public class CollectionEventArgs <ModelType>: BaseEventArgs where ModelType : IModel
     {
         public CollectionEventArgs(string eventName, CollectionModel<ModelType> collection, ModelType[] changedItems) : base(eventName)
         {

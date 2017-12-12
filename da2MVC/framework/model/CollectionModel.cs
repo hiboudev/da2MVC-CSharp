@@ -9,29 +9,29 @@ namespace da2mvc.framework.model
         public const string EVENT_ITEMS_ADDED = "itemsAdded";
         public const string EVENT_ITEMS_REMOVED = "itemsRemoved";
 
-        private List<ModelType> Collection { get; } = new List<ModelType>();
+        public List<ModelType> Items { get; } = new List<ModelType>();
 
         public void Add(ModelType model)
         {
-            Collection.Add(model);
+            Items.Add(model);
             DispatchEvent(new CollectionEventArgs<ModelType>(EVENT_ITEMS_ADDED, this, new ModelType[] { model }));
         }
 
         public void AddRange(List<ModelType> models)
         {
-            Collection.AddRange(models);
+            Items.AddRange(models);
             DispatchEvent(new CollectionEventArgs<ModelType>(EVENT_ITEMS_ADDED, this, models.ToArray()));
         }
         
         public void Remove(ModelType model)
         {
-            Collection.Remove(model);
+            Items.Remove(model);
             DispatchEvent(new CollectionEventArgs<ModelType>(EVENT_ITEMS_REMOVED, this, new ModelType[] { model }));
         }
 
         public ModelType Get(int id)
         {
-            foreach (ModelType model in Collection)
+            foreach (ModelType model in Items)
                 if (model.Id == id)
                     return model;
             return default(ModelType);
