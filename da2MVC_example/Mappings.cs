@@ -1,12 +1,7 @@
-﻿using da2mvc.injection;
+﻿using da2mvc.core.injection;
 using da2MVC_example.command;
 using da2MVC_example.model;
 using da2MVC_example.view;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace da2MVC_example
 {

@@ -1,11 +1,6 @@
-﻿using da2mvc.command;
+﻿using da2mvc.core.command;
 using da2MVC_example.events;
 using da2MVC_example.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace da2MVC_example.command
 {

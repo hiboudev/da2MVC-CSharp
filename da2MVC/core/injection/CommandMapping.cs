@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace da2mvc.injection
+namespace da2mvc.core.injection
 {
     class CommandMapping
     {

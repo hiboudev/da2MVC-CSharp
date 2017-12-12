@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace da2mvc.command
+namespace da2mvc.framework.model
 {
-    public interface ICommand
+    public interface IModel
     {
-        void Execute();
+        int Id { get; }
     }
 }

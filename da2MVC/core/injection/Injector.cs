@@ -1,16 +1,13 @@
-﻿using System;
+﻿using da2mvc.core.command;
+using da2mvc.core.events;
+using da2mvc.core.view;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using da2mvc.command;
-using da2mvc.events;
-using da2mvc.view;
 
-namespace da2mvc.injection
+namespace da2mvc.core.injection
 {
     public class Injector
     {

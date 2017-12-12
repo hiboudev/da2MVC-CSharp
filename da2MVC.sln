@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "da2MVC", "da2MVC\da2MVC.csproj", "{736F89EB-5C53-469A-B1FD-A5A6C7B4F68F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "da2mvc", "da2MVC\da2mvc.csproj", "{736F89EB-5C53-469A-B1FD-A5A6C7B4F68F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "da2MVC_example", "da2MVC_example\da2MVC_example.csproj", "{5F6F8D0B-2E16-44A0-BFDD-5C8FA06722EA}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -11,11 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "da2MVC_example", "da2MVC_ex
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{2E816150-12D4-4E11-AF73-3FA42D921C02}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AA4AC47C-75EB-4CDF-A9B8-9D3CAE93CFA8} = {AA4AC47C-75EB-4CDF-A9B8-9D3CAE93CFA8}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "da2Framework", "da2Framework\da2Framework.csproj", "{AA4AC47C-75EB-4CDF-A9B8-9D3CAE93CFA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +30,6 @@ Global
 		{2E816150-12D4-4E11-AF73-3FA42D921C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E816150-12D4-4E11-AF73-3FA42D921C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E816150-12D4-4E11-AF73-3FA42D921C02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA4AC47C-75EB-4CDF-A9B8-9D3CAE93CFA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA4AC47C-75EB-4CDF-A9B8-9D3CAE93CFA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA4AC47C-75EB-4CDF-A9B8-9D3CAE93CFA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA4AC47C-75EB-4CDF-A9B8-9D3CAE93CFA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
