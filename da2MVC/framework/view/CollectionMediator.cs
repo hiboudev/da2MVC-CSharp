@@ -16,9 +16,9 @@ namespace da2mvc.framework.view
     {
         public CollectionMediator()
         {
-            RegisterEventListener<CollectionType, CollectionEventArgs<ModelType>>(CollectionModel<ModelType>.EVENT_ITEMS_ADDED, OnItemsAdded);
-            RegisterEventListener<CollectionType, CollectionEventArgs<ModelType>>(CollectionModel<ModelType>.EVENT_ITEMS_REMOVED, OnItemsRemoved);
-            RegisterEventListener<CollectionType, CollectionEventArgs<ModelType>>(CollectionModel<ModelType>.EVENT_CLEARED, OnItemsCleared);
+            HandleEvent<CollectionType, CollectionEventArgs<ModelType>>(CollectionModel<ModelType>.EVENT_ITEMS_ADDED, OnItemsAdded);
+            HandleEvent<CollectionType, CollectionEventArgs<ModelType>>(CollectionModel<ModelType>.EVENT_ITEMS_REMOVED, OnItemsRemoved);
+            HandleEvent<CollectionType, CollectionEventArgs<ModelType>>(CollectionModel<ModelType>.EVENT_CLEARED, OnItemsCleared);
         }
 
         protected override void ViewInitialized()

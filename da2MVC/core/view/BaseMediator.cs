@@ -24,7 +24,7 @@ namespace da2mvc.core.view
             ViewInitialized();
         }
 
-        public void RegisterEventListener<DispatcherType, EventArgsType>(string eventName, EventListener<EventArgsType> listener) where EventArgsType : BaseEventArgs where DispatcherType : IEventDispatcher
+        public void HandleEvent<DispatcherType, EventArgsType>(string eventName, EventListener<EventArgsType> listener) where EventArgsType : BaseEventArgs where DispatcherType : IEventDispatcher
         {
             Type dispatcherType = typeof(DispatcherType);
 

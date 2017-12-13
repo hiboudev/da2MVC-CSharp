@@ -12,7 +12,7 @@ namespace da2MVC_example.view
         public OutputMediator(DataModel model)
         {
             this.model = model;
-            RegisterEventListener<DataModel, StringEventArgs>(DataModel.EVENT_DATA_CHANGED, OnDataChanged);
+            HandleEvent<DataModel, StringEventArgs>(DataModel.EVENT_DATA_CHANGED, OnDataChanged);
         }
 
         private void OnDataChanged(StringEventArgs args)
