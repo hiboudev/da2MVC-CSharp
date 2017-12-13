@@ -11,7 +11,6 @@ namespace da2MVC_example
             InitializeComponent();
 
             Mappings.Initialize();
-
             InitializeUI();
         }
 
@@ -23,11 +22,8 @@ namespace da2MVC_example
                 FlowDirection = FlowDirection.TopDown,
             };
 
-            var inputView = Injector.GetInstance<InputView>();
-            var outputView = Injector.GetInstance<OutputView>();
-
-            layout.Controls.Add(inputView);
-            layout.Controls.Add(outputView);
+            layout.Controls.Add(Injector.GetInstance<InputView>());
+            layout.Controls.Add(Injector.GetInstance<OutputView>());
 
             Controls.Add(layout);
         }

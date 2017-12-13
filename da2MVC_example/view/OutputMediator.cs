@@ -15,15 +15,15 @@ namespace da2MVC_example.view
             HandleEvent<DataModel, StringEventArgs>(DataModel.EVENT_DATA_CHANGED, OnDataChanged);
         }
 
-        private void OnDataChanged(StringEventArgs args)
-        {
-            View.SetData(args.Data);
-        }
-
         protected override void ViewInitialized()
         {
             View.SetData(model.Data);
             model = null;
+        }
+
+        private void OnDataChanged(StringEventArgs args)
+        {
+            View.SetData(args.Data);
         }
     }
 }

@@ -15,15 +15,12 @@ namespace da2MVC_example.view
             InitializeUI();
         }
 
-
         private void InitializeUI()
         {
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
-            TextBox inputField = new TextBox()
-            {
-            };
+            TextBox inputField = new TextBox();
 
             Button okButton = new Button()
             {
