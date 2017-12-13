@@ -45,6 +45,7 @@
     <Compile Include="core\command\ICommand.cs" />
     <Compile Include="core\events\BaseEventArgs.cs" />
     <Compile Include="core\events\EventDispatcher.cs" />
+    <Compile Include="core\events\EventId.cs" />
     <Compile Include="core\events\IEventDispatcher.cs" />
     <Compile Include="core\injection\CommandMapping.cs" />
     <Compile Include="core\injection\Injector.cs" />

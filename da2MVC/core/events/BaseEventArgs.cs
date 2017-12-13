@@ -4,11 +4,11 @@ namespace da2mvc.core.events
 {
     public class BaseEventArgs: EventArgs
     {
-        public BaseEventArgs(string eventName)
+        public BaseEventArgs(int eventId)
         {
-            EventName = eventName;
+            EventId = eventId;
         }
 
-        public string EventName { get; }
+        public int EventId { get; }
     }
 }

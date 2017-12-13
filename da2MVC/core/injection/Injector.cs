@@ -15,7 +15,7 @@ namespace da2mvc.core.injection
 
         public static void MapType<MapType, MapToType>(bool isSingleton = false) { injector.MapType(typeof(MapType), typeof(MapToType), isSingleton); }
         public static void MapType<MapType>(bool isSingleton = false) { injector.MapType(typeof(MapType), isSingleton); }
-        public static void MapCommand<DispatcherType, CommandType>(string eventName) where DispatcherType : IEventDispatcher where CommandType : ICommand { injector.MapCommand(typeof(DispatcherType), eventName, typeof(CommandType)); }
+        public static void MapCommand<DispatcherType, CommandType>(int eventId) where DispatcherType : IEventDispatcher where CommandType : ICommand { injector.MapCommand(typeof(DispatcherType), eventId, typeof(CommandType)); }
         public static T GetInstance<T>() { return (T)injector.GetInstance(typeof(T)); }
         public static void ExecuteCommand<CommandType>(BaseEventArgs eventArgs = null) where CommandType : ICommand { injector.ExecuteCommand(typeof(CommandType), eventArgs); }
         public static void MapInstance<MapType>(object instance) { injector.MapInstance(typeof(MapType), instance); }
@@ -90,7 +90,7 @@ namespace da2mvc.core.injection
                 MapEvents(mapType, instance);
             }
 
-            public void MapCommand(Type dispatcherType, string eventName, Type commandType)
+            public void MapCommand(Type dispatcherType, int eventId, Type commandType)
             {
                 if (!typeof(IEventDispatcher).IsAssignableFrom(dispatcherType))
                     throw new Exception($"Type {dispatcherType} must implement IDispatcher.");
@@ -101,13 +101,13 @@ namespace da2mvc.core.injection
                 if (!commandMappings.ContainsKey(dispatcherType))
                 {
                     CommandMapping mapping = new CommandMapping(dispatcherType);
-                    mapping.MapEvent(eventName, commandType);
+                    mapping.MapEvent(eventId, commandType);
                     commandMappings.Add(dispatcherType, mapping);
                 }
                 else
                 {
                     CommandMapping mapping = commandMappings[dispatcherType];
-                    mapping.MapEvent(eventName, commandType);
+                    mapping.MapEvent(eventId, commandType);
                 }
             }
 
@@ -141,10 +141,10 @@ namespace da2mvc.core.injection
 
                 CommandMapping mapping = commandMappings[sender.GetType()];
 
-                if (!mapping.HasMapping(typedArgs.EventName))
+                if (!mapping.HasMapping(typedArgs.EventId))
                     return;
 
-                foreach (Type commandType in mapping.GetCommandTypes(typedArgs.EventName))
+                foreach (Type commandType in mapping.GetCommandTypes(typedArgs.EventId))
                 {
                     ICommand command = GetCommandInstance(commandType, typedArgs);
                     command.Execute();
@@ -171,8 +171,8 @@ namespace da2mvc.core.injection
                         if (mediator.Listeners.ContainsKey(sender.GetType()))
                         {
                             MediatorEventMapping mapping = mediator.Listeners[sender.GetType()];
-                            if (mapping.HasListener(typedArgs.EventName))
-                                mapping.GetListener(typedArgs.EventName).Invoke(typedArgs);
+                            if (mapping.HasListener(typedArgs.EventId))
+                                mapping.GetListener(typedArgs.EventId).Invoke(typedArgs);
                         }
                     }
                 }

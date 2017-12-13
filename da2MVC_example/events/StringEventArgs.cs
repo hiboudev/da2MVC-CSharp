@@ -4,7 +4,7 @@ namespace da2MVC_example.events
 {
     class StringEventArgs : BaseEventArgs
     {
-        public StringEventArgs(string eventName, string Data) : base(eventName)
+        public StringEventArgs(int eventId, string Data) : base(eventId)
         {
             this.Data = Data;
         }

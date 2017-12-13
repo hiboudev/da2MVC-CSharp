@@ -8,7 +8,7 @@ namespace da2MVC_example.view
     class InputView : FlowLayoutPanel, IEventDispatcher
     {
         public event EventHandler MvcEventHandler;
-        public const string EVENT_UPDATE_REQUESTED = "updateRequested";
+        public static readonly int EVENT_UPDATE_REQUESTED = EventId.New();
 
         public InputView()
         {

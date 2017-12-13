@@ -15,7 +15,7 @@ namespace da2mvc.framework.menubutton.view
     public class MenuButtonView<ModelType> : SettingsMenuButtonView, ICollectionView<ModelType> where ModelType : IModel
     {
         private List<ToolStripMenuItem> regularItems = new List<ToolStripMenuItem>();
-        public const string EVENT_ITEM_CLICKED = "itemClicked";
+        public static readonly int EVENT_ITEM_CLICKED = EventId.New();
 
         public MenuButtonView()
         {

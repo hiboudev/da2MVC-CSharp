@@ -5,29 +5,29 @@ namespace da2mvc.core.injection
 {
     class CommandMapping
     {
-        private Dictionary<string, List<Type>> eventMappings = new Dictionary<string, List<Type>>();
+        private Dictionary<int, List<Type>> eventMappings = new Dictionary<int, List<Type>>();
 
         public CommandMapping(Type dispatcherType)
         {
             DispatcherType = dispatcherType;
         }
 
-        public void MapEvent(string eventName, Type commandType)
+        public void MapEvent(int eventId, Type commandType)
         {
-            if (!eventMappings.ContainsKey(eventName))
-                eventMappings.Add(eventName, new List<Type>());
+            if (!eventMappings.ContainsKey(eventId))
+                eventMappings.Add(eventId, new List<Type>());
 
-            eventMappings[eventName].Add(commandType);
+            eventMappings[eventId].Add(commandType);
         }
 
-        public List<Type> GetCommandTypes(string eventName)
+        public List<Type> GetCommandTypes(int eventId)
         {
-            return eventMappings[eventName];
+            return eventMappings[eventId];
         }
 
-        public bool HasMapping(string eventName)
+        public bool HasMapping(int eventId)
         {
-            return eventMappings.ContainsKey(eventName);
+            return eventMappings.ContainsKey(eventId);
         }
 
         public Type DispatcherType { get; }

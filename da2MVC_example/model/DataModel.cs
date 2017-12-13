@@ -5,7 +5,7 @@ namespace da2MVC_example.model
 {
     class DataModel:EventDispatcher
     {
-        public const string EVENT_DATA_CHANGED = "dataChanged";
+        public static readonly int EVENT_DATA_CHANGED = EventId.New();
 
         public string Data { get; private set; } = "Default";
 

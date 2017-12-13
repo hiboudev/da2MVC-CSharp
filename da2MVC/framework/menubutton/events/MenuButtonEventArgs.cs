@@ -9,7 +9,7 @@ namespace da2mvc.framework.menubutton.events
 {
     public class MenuButtonEventArgs : BaseEventArgs
     {
-        public MenuButtonEventArgs(string eventName, int itemId, string itemName) : base(eventName)
+        public MenuButtonEventArgs(int eventId, int itemId, string itemName) : base(eventId)
         {
             ItemId = itemId;
             ItemName = itemName;

@@ -6,7 +6,7 @@ namespace da2mvc.framework.collection.events
 {
     public class CollectionEventArgs <ModelType>: BaseEventArgs where ModelType : IModel
     {
-        public CollectionEventArgs(string eventName, CollectionModel<ModelType> collection, ModelType[] changedItems) : base(eventName)
+        public CollectionEventArgs(int eventId, CollectionModel<ModelType> collection, ModelType[] changedItems) : base(eventId)
         {
             Collection = collection;
             ChangedItems = changedItems;

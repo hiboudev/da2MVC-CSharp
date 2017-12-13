@@ -7,9 +7,9 @@ namespace da2mvc.framework.collection.model
 {
     public class CollectionModel<ModelType> : EventDispatcher where ModelType : IModel
     {
-        public const string EVENT_ITEMS_ADDED = "itemsAdded";
-        public const string EVENT_ITEMS_REMOVED = "itemsRemoved";
-        public const string EVENT_CLEARED = "cleared";
+        public static readonly int EVENT_ITEMS_ADDED = EventId.New();
+        public static readonly int EVENT_ITEMS_REMOVED = EventId.New();
+        public static readonly int EVENT_CLEARED = EventId.New();
 
         public List<ModelType> Items { get; } = new List<ModelType>();
 
