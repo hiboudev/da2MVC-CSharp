@@ -59,6 +59,9 @@
     <Compile Include="framework\menubutton\view\MenuButtonView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="framework\menubutton\view\SettingsMenuButtonView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="framework\model\IModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="core\view\BaseMediator.cs" />
