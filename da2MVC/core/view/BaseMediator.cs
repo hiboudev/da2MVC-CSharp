@@ -24,12 +24,14 @@ namespace da2mvc.core.view
             ViewInitialized();
         }
 
-        public void RegisterEventListener<EventArgsType>(Type sender, string eventName, EventListener<EventArgsType> listener) where EventArgsType : BaseEventArgs
+        public void RegisterEventListener<DispatcherType, EventArgsType>(string eventName, EventListener<EventArgsType> listener) where EventArgsType : BaseEventArgs where DispatcherType : IEventDispatcher
         {
-            if(!Listeners.ContainsKey(sender))
-                Listeners[sender] = new MediatorEventMapping(sender);
+            Type dispatcherType = typeof(DispatcherType);
+
+            if(!Listeners.ContainsKey(dispatcherType))
+                Listeners[dispatcherType] = new MediatorEventMapping(dispatcherType);
             
-            Listeners[sender].MapEvent(eventName, new MediatorListenerWrapper(listener, this));
+            Listeners[dispatcherType].MapEvent(eventName, new MediatorListenerWrapper(listener, this));
         }
     }
 }

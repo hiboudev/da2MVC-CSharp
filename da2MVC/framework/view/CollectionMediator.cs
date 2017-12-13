@@ -16,9 +16,9 @@ namespace da2mvc.framework.view
     {
         public CollectionMediator()
         {
-            RegisterEventListener<CollectionEventArgs<ModelType>>(typeof(CollectionType), CollectionModel<ModelType>.EVENT_ITEMS_ADDED, OnItemsAdded);
-            RegisterEventListener<CollectionEventArgs<ModelType>>(typeof(CollectionType), CollectionModel<ModelType>.EVENT_ITEMS_REMOVED, OnItemsRemoved);
-            RegisterEventListener<CollectionEventArgs<ModelType>>(typeof(CollectionType), CollectionModel<ModelType>.EVENT_CLEARED, OnItemsCleared);
+            RegisterEventListener<CollectionType, CollectionEventArgs<ModelType>>(CollectionModel<ModelType>.EVENT_ITEMS_ADDED, OnItemsAdded);
+            RegisterEventListener<CollectionType, CollectionEventArgs<ModelType>>(CollectionModel<ModelType>.EVENT_ITEMS_REMOVED, OnItemsRemoved);
+            RegisterEventListener<CollectionType, CollectionEventArgs<ModelType>>(CollectionModel<ModelType>.EVENT_CLEARED, OnItemsCleared);
         }
 
         protected override void ViewInitialized()
@@ -27,7 +27,8 @@ namespace da2mvc.framework.view
 
             // To avoid forcing sub-classes to declare a ctor parameter.
             var collection = Injector.GetInstance<CollectionType>();
-            View.Add(collection.Items.ToArray());
+            if(collection.Items.Count > 0)
+                View.Add(collection.Items.ToArray());
         }
 
         private void OnItemsAdded(CollectionEventArgs<ModelType> args)
