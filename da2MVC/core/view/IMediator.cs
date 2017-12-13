@@ -11,10 +11,5 @@ namespace da2mvc.core.view
     {
         void InitializeView(IComponent view);
         Dictionary<Type, MediatorEventMapping> Listeners { get; }
-
-        //IComponent View { get; }
-
-        //void RegisterEventListener(Type sender, string eventName, EventListener listener);
-        //void HandleEvent(Type sender, BaseEventArgs args);
     }
 }
