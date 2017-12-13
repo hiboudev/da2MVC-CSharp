@@ -6,7 +6,6 @@ using System.ComponentModel;
 
 namespace da2mvc.core.view
 {
-    public delegate void EventListener(BaseEventArgs args);
 
     public interface IMediator 
     {

@@ -12,12 +12,12 @@ namespace da2MVC_example.view
         public OutputMediator(DataModel model)
         {
             this.model = model;
-            RegisterEventListener(typeof(DataModel), DataModel.EVENT_DATA_CHANGED, OnDataChanged);
+            RegisterEventListener<StringEventArgs>(typeof(DataModel), DataModel.EVENT_DATA_CHANGED, OnDataChanged);
         }
 
-        private void OnDataChanged(BaseEventArgs args)
+        private void OnDataChanged(StringEventArgs args)
         {
-            View.SetData(((StringEventArgs)args).Data);
+            View.SetData(args.Data);
         }
 
         protected override void ViewInitialized()

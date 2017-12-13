@@ -15,23 +15,23 @@ namespace da2mvc.framework.view
     {
         public CollectionMediator()
         {
-            RegisterEventListener(typeof(CollectionType), CollectionModel<ModelType>.EVENT_ITEMS_ADDED, OnItemsAdded);
-            RegisterEventListener(typeof(CollectionType), CollectionModel<ModelType>.EVENT_ITEMS_REMOVED, OnItemsRemoved);
-            RegisterEventListener(typeof(CollectionType), CollectionModel<ModelType>.EVENT_CLEARED, OnItemsCleared);
+            RegisterEventListener<CollectionEventArgs<ModelType>>(typeof(CollectionType), CollectionModel<ModelType>.EVENT_ITEMS_ADDED, OnItemsAdded);
+            RegisterEventListener<CollectionEventArgs<ModelType>>(typeof(CollectionType), CollectionModel<ModelType>.EVENT_ITEMS_REMOVED, OnItemsRemoved);
+            RegisterEventListener<CollectionEventArgs<ModelType>>(typeof(CollectionType), CollectionModel<ModelType>.EVENT_CLEARED, OnItemsCleared);
         }
 
-        private void OnItemsAdded(BaseEventArgs args)
+        private void OnItemsAdded(CollectionEventArgs<ModelType> args)
         {
             // TODO : how to use generic type with EventArgs?
-            View.Add(((CollectionEventArgs<ModelType>)args).ChangedItems);
+            View.Add(args.ChangedItems);
         }
 
-        private void OnItemsRemoved(BaseEventArgs args)
+        private void OnItemsRemoved(CollectionEventArgs<ModelType> args)
         {
-            View.Remove(((CollectionEventArgs<ModelType>)args).ChangedItems);
+            View.Remove(args.ChangedItems);
         }
 
-        private void OnItemsCleared(BaseEventArgs args)
+        private void OnItemsCleared(CollectionEventArgs<ModelType> args)
         {
             View.Clear();
         }

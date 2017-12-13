@@ -172,7 +172,7 @@ namespace da2mvc.core.injection
                         {
                             MediatorEventMapping mapping = mediator.Listeners[sender.GetType()];
                             if (mapping.HasListener(typedArgs.EventName))
-                                mapping.GetListener(typedArgs.EventName)(typedArgs);
+                                mapping.GetListener(typedArgs.EventName).Invoke(typedArgs);
                         }
                     }
                 }

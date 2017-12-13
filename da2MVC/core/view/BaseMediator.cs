@@ -6,6 +6,8 @@ using System.ComponentModel;
 
 namespace da2mvc.core.view
 {
+    public delegate void EventListener<EventArgsType>(EventArgsType args) where EventArgsType : BaseEventArgs;
+
     public class BaseMediator<ViewType>:IMediator where ViewType : IComponent
     {
         private IComponent view;
@@ -16,24 +18,18 @@ namespace da2mvc.core.view
 
         public void InitializeView(IComponent view)
         {
+            if (!(view is ViewType)) throw new Exception($"View must be of type {typeof(ViewType)}.");
+
             this.view = view;
             ViewInitialized();
         }
 
-        public void RegisterEventListener(Type sender, string eventName, EventListener listener)
+        public void RegisterEventListener<EventArgsType>(Type sender, string eventName, EventListener<EventArgsType> listener) where EventArgsType : BaseEventArgs
         {
             if(!Listeners.ContainsKey(sender))
                 Listeners[sender] = new MediatorEventMapping(sender);
-
-            Listeners[sender].MapEvent(eventName, listener);
+            
+            Listeners[sender].MapEvent(eventName, new MediatorListenerWrapper(listener, this));
         }
-
-        //public void HandleEvent(Type sender, BaseEventArgs args)
-        //{
-        //    if (!Listeners.ContainsKey(sender) && !Listeners[sender].HasListener(args.EventName)) return;
-
-        //    EventListener listener = Listeners[sender].GetListener(args.EventName);
-        //    listener(args);
-        //}
     }
 }
