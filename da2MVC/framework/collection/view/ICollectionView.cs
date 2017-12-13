@@ -1,12 +1,7 @@
 ﻿using da2mvc.framework.model;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace da2mvc.framework.view
+namespace da2mvc.framework.collection.view
 {
     public interface ICollectionView<ModelType> : IComponent where ModelType : IModel
     {

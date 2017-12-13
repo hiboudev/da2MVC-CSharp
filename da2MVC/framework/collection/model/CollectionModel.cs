@@ -1,8 +1,9 @@
-﻿using da2mvc.framework.model.events;
-using da2mvc.core.events;
+﻿using da2mvc.core.events;
+using da2mvc.framework.collection.events;
+using da2mvc.framework.model;
 using System.Collections.Generic;
 
-namespace da2mvc.framework.model
+namespace da2mvc.framework.collection.model
 {
     public class CollectionModel<ModelType> : EventDispatcher where ModelType : IModel
     {

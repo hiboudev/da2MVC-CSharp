@@ -1,16 +1,11 @@
-﻿using da2mvc.core.events;
-using da2mvc.core.injection;
+﻿using da2mvc.core.injection;
 using da2mvc.core.view;
+using da2mvc.framework.collection.events;
+using da2mvc.framework.collection.model;
 using da2mvc.framework.model;
-using da2mvc.framework.model.events;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace da2mvc.framework.view
+namespace da2mvc.framework.collection.view
 {
     public class CollectionMediator<CollectionType, ModelType, ViewType> : BaseMediator<ViewType> where CollectionType : CollectionModel<ModelType> where ModelType :IModel where ViewType : ICollectionView<ModelType>
     {

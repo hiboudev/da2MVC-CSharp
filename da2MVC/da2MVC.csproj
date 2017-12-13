@@ -49,10 +49,10 @@
     <Compile Include="core\injection\MediatorEventMapping.cs" />
     <Compile Include="core\injection\TypeMapping.cs" />
     <Compile Include="core\view\MediatorListenerWrapper.cs" />
-    <Compile Include="framework\view\CollectionMediator.cs" />
-    <Compile Include="framework\view\ICollectionView.cs" />
-    <Compile Include="framework\model\CollectionModel.cs" />
-    <Compile Include="framework\model\events\CollectionEventArgs.cs" />
+    <Compile Include="framework\collection\view\CollectionMediator.cs" />
+    <Compile Include="framework\collection\view\ICollectionView.cs" />
+    <Compile Include="framework\collection\model\CollectionModel.cs" />
+    <Compile Include="framework\collection\events\CollectionEventArgs.cs" />
     <Compile Include="framework\model\IModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="core\view\BaseMediator.cs" />

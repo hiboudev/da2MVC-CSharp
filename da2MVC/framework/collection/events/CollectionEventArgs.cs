@@ -1,11 +1,8 @@
 ﻿using da2mvc.core.events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using da2mvc.framework.collection.model;
+using da2mvc.framework.model;
 
-namespace da2mvc.framework.model.events
+namespace da2mvc.framework.collection.events
 {
     public class CollectionEventArgs <ModelType>: BaseEventArgs where ModelType : IModel
     {
