@@ -16,7 +16,7 @@ namespace da2mvc.core.injection
         public static void MapType(Type mapType, Type mapTo, bool isSingleton = false) { injector.MapType(mapType, mapTo, isSingleton); }
         public static void MapType(Type type, bool isSingleton = false) { injector.MapType(type, isSingleton); }
         public static void MapCommand(Type dispatcherType, string eventName, Type commandType) { injector.MapCommand(dispatcherType, eventName, commandType); }
-        public static object GetInstance(Type type) { return injector.GetInstance(type); }
+        public static T GetInstance<T>() { return (T)injector.GetInstance(typeof(T)); }
         public static void ExecuteCommand(Type commandType, BaseEventArgs eventArgs = null) { injector.ExecuteCommand(commandType, eventArgs); }
         public static void MapInstance(Type mapType, object instance) { injector.MapInstance(mapType, instance); }
         public static void MapInstance(object instance) { injector.MapInstance(instance); }
@@ -111,19 +111,19 @@ namespace da2mvc.core.injection
                 }
             }
 
-            public object GetInstance(Type type)
+            public object GetInstance(Type instanceType)
             {
-                if (!typeMappings.ContainsKey(type))
-                    throw new Exception($"No mapping for type {type}.");
+                if (!typeMappings.ContainsKey(instanceType))
+                    throw new Exception($"No mapping for type {instanceType}.");
 
-                TypeMapping mapping = typeMappings[type];
+                TypeMapping mapping = typeMappings[instanceType];
 
                 if (mapping.IsSingleton)
                 {
-                    if (singletons.ContainsKey(type)) return singletons[type];
+                    if (singletons.ContainsKey(instanceType)) return singletons[instanceType];
 
                     object instance = BuildInstance(mapping.MapTo, GetCtorParameters(mapping.MapTo));
-                    singletons.Add(type, instance);
+                    singletons.Add(instanceType, instance);
                     return instance;
                 }
 

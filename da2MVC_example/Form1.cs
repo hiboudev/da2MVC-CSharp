@@ -23,8 +23,8 @@ namespace da2MVC_example
                 FlowDirection = FlowDirection.TopDown,
             };
 
-            var inputView = (InputView)Injector.GetInstance(typeof(InputView));
-            var outputView = (OutputView)Injector.GetInstance(typeof(OutputView));
+            var inputView = Injector.GetInstance<InputView>();
+            var outputView = Injector.GetInstance<OutputView>();
 
             layout.Controls.Add(inputView);
             layout.Controls.Add(outputView);

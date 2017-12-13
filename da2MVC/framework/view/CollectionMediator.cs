@@ -22,7 +22,6 @@ namespace da2mvc.framework.view
 
         private void OnItemsAdded(CollectionEventArgs<ModelType> args)
         {
-            // TODO : how to use generic type with EventArgs?
             View.Add(args.ChangedItems);
         }
 
