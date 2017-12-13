@@ -48,6 +48,8 @@
     <Compile Include="core\injection\Injector.cs" />
     <Compile Include="core\injection\MediatorEventMapping.cs" />
     <Compile Include="core\injection\TypeMapping.cs" />
+    <Compile Include="framework\view\CollectionMediator.cs" />
+    <Compile Include="framework\view\ICollectionView.cs" />
     <Compile Include="framework\model\CollectionModel.cs" />
     <Compile Include="framework\model\events\CollectionEventArgs.cs" />
     <Compile Include="framework\model\IModel.cs" />

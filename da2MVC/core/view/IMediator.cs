@@ -8,13 +8,14 @@ namespace da2mvc.core.view
 {
     public delegate void EventListener(BaseEventArgs args);
 
-    public interface IMediator //<ViewType> where ViewType:IComponent
+    public interface IMediator 
     {
         void InitializeView(IComponent view);
-        IComponent View { get; }
         Dictionary<Type, MediatorEventMapping> Listeners { get; }
 
-        void RegisterEventListener(Type sender, string eventName, EventListener listener);
-        void HandleEvent(Type sender, BaseEventArgs args);
+        //IComponent View { get; }
+
+        //void RegisterEventListener(Type sender, string eventName, EventListener listener);
+        //void HandleEvent(Type sender, BaseEventArgs args);
     }
 }

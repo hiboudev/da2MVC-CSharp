@@ -6,40 +6,34 @@ using System.ComponentModel;
 
 namespace da2mvc.core.view
 {
-    public class BaseMediator:IMediator//<ViewType> : IMediator<ViewType> where ViewType : IComponent
+    public class BaseMediator<ViewType>:IMediator where ViewType : IComponent
     {
-        private Dictionary<Type, MediatorEventMapping> listeners;
-        public Dictionary<Type, MediatorEventMapping> Listeners { get => listeners; }
+        private IComponent view;
+        public ViewType View { get => (ViewType)view; }
+        public Dictionary<Type, MediatorEventMapping> Listeners { get; } = new Dictionary<Type, MediatorEventMapping>();
 
-        public IComponent View { get; private set; }
-
-        public BaseMediator()
-        {
-            listeners = new Dictionary<Type, MediatorEventMapping>();
-        }
+        virtual protected void ViewInitialized() { }
 
         public void InitializeView(IComponent view)
         {
-            View = view;
+            this.view = view;
             ViewInitialized();
         }
 
-        virtual protected void ViewInitialized(){}
-
         public void RegisterEventListener(Type sender, string eventName, EventListener listener)
         {
-            if(!listeners.ContainsKey(sender))
-                listeners[sender] = new MediatorEventMapping(sender);
+            if(!Listeners.ContainsKey(sender))
+                Listeners[sender] = new MediatorEventMapping(sender);
 
-            listeners[sender].MapEvent(eventName, listener);
+            Listeners[sender].MapEvent(eventName, listener);
         }
 
-        public void HandleEvent(Type sender, BaseEventArgs args)
-        {
-            if (!listeners.ContainsKey(sender) && !listeners[sender].HasListener(args.EventName)) return;
+        //public void HandleEvent(Type sender, BaseEventArgs args)
+        //{
+        //    if (!Listeners.ContainsKey(sender) && !Listeners[sender].HasListener(args.EventName)) return;
 
-            EventListener listener = listeners[sender].GetListener(args.EventName);
-            listener(args);
-        }
+        //    EventListener listener = Listeners[sender].GetListener(args.EventName);
+        //    listener(args);
+        //}
     }
 }

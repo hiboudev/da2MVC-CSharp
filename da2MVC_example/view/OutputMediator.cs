@@ -5,24 +5,24 @@ using da2mvc.core.events;
 
 namespace da2MVC_example.view
 {
-    class OutputMediator : BaseMediator
+    class OutputMediator : BaseMediator<OutputView>
     {
         private DataModel model;
 
         public OutputMediator(DataModel model)
         {
-            RegisterEventListener(typeof(DataModel), DataModel.EVENT_DATA_CHANGED, OnDataChanged);
             this.model = model;
+            RegisterEventListener(typeof(DataModel), DataModel.EVENT_DATA_CHANGED, OnDataChanged);
         }
 
         private void OnDataChanged(BaseEventArgs args)
         {
-            ((OutputView)View).SetData(((StringEventArgs)args).Data);
+            View.SetData(((StringEventArgs)args).Data);
         }
 
         protected override void ViewInitialized()
         {
-            ((OutputView)View).SetData(model.Data);
+            View.SetData(model.Data);
             model = null;
         }
     }
