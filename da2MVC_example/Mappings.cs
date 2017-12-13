@@ -9,12 +9,12 @@ namespace da2MVC_example
     {
         public static void Initialize()
         {
-            Injector.MapType(typeof(DataModel), true);
-            Injector.MapType(typeof(InputView), true);
+            Injector.MapType<DataModel>(true);
+            Injector.MapType<InputView>(true);
 
-            Injector.MapView(typeof(OutputView), typeof(OutputMediator), true);
+            Injector.MapView<OutputView, OutputMediator>(true);
 
-            Injector.MapCommand(typeof(InputView), InputView.EVENT_UPDATE_REQUESTED, typeof(UpdateDataCommand));
+            Injector.MapCommand<InputView, UpdateDataCommand>(InputView.EVENT_UPDATE_REQUESTED);
         }
     }
 }

@@ -13,16 +13,16 @@ namespace da2mvc.core.injection
     {
         private static PrivateInjector injector = new PrivateInjector();
 
-        public static void MapType(Type mapType, Type mapTo, bool isSingleton = false) { injector.MapType(mapType, mapTo, isSingleton); }
-        public static void MapType(Type type, bool isSingleton = false) { injector.MapType(type, isSingleton); }
-        public static void MapCommand(Type dispatcherType, string eventName, Type commandType) { injector.MapCommand(dispatcherType, eventName, commandType); }
+        public static void MapType<MapType, MapToType>(bool isSingleton = false) { injector.MapType(typeof(MapType), typeof(MapToType), isSingleton); }
+        public static void MapType<MapType>(bool isSingleton = false) { injector.MapType(typeof(MapType), isSingleton); }
+        public static void MapCommand<DispatcherType, CommandType>(string eventName) where DispatcherType : IEventDispatcher where CommandType : ICommand { injector.MapCommand(typeof(DispatcherType), eventName, typeof(CommandType)); }
         public static T GetInstance<T>() { return (T)injector.GetInstance(typeof(T)); }
-        public static void ExecuteCommand(Type commandType, BaseEventArgs eventArgs = null) { injector.ExecuteCommand(commandType, eventArgs); }
-        public static void MapInstance(Type mapType, object instance) { injector.MapInstance(mapType, instance); }
+        public static void ExecuteCommand<CommandType>(BaseEventArgs eventArgs = null) where CommandType : ICommand { injector.ExecuteCommand(typeof(CommandType), eventArgs); }
+        public static void MapInstance<MapType>(object instance) { injector.MapInstance(typeof(MapType), instance); }
         public static void MapInstance(object instance) { injector.MapInstance(instance); }
-        public static void MapView(Type viewType, Type mediatorType, bool isSingleton = false) { injector.MapView(viewType, mediatorType, isSingleton); }
-        public static void MapViewInstance(Type mapType, object view, Type mediatorType) { injector.MapViewInstance(mapType, view, mediatorType); }
-        public static void MapViewInstance(object view, Type mediatorType) { injector.MapViewInstance(view, mediatorType); }
+        public static void MapView<ViewType, MediatorType>(bool isSingleton = false) where ViewType : IComponent where MediatorType : IMediator { injector.MapView(typeof(ViewType), typeof(MediatorType), isSingleton); }
+        public static void MapViewInstance<ViewType, MediatorType>(object view) where ViewType : IComponent where MediatorType : IMediator { injector.MapViewInstance(typeof(ViewType), view, typeof(MediatorType)); }
+        public static void MapViewInstance<MediatorType>(object view) where MediatorType : IMediator { injector.MapViewInstance(view, typeof(MediatorType)); }
 
         private class PrivateInjector
         {
