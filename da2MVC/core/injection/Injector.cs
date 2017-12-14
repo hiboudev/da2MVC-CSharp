@@ -161,7 +161,7 @@ namespace da2mvc.core.injection
                     ExecuteCommandFromEvent(sender, args);
                 }
                 // Registered mediators
-                else if (mediators.Count > 0)
+                if (mediators.Count > 0)
                 {
                     // Do a copy cause some mediators could trigger instanciation of a new view/mediator and then modify the mediators list while we're iterating on it.
                     List<IMediator> mediatorList = mediators.Values.ToList();
