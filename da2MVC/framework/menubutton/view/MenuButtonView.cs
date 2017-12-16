@@ -123,12 +123,17 @@ namespace da2mvc.framework.menubutton.view
                 return;
             }
 
+            base.Text = FormatTitle(selectedName);
+        }
+
+        virtual protected string FormatTitle(string selectedName)
+        {
             int maxLength = TitleMaxLength;
 
             if (selectedName.Length > maxLength)
                 selectedName = selectedName.Substring(0, maxLength) + "...";
 
-            Text = $"{Title}: {selectedName}";
+            return $"{Title}: {selectedName}";
         }
 
         override protected void Redraw()
