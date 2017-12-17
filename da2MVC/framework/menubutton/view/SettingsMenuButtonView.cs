@@ -11,7 +11,7 @@ namespace da2mvc.framework.menubutton.view
 {
     public class SettingsMenuButtonView : Button, IEventDispatcher
     {
-        protected List<ToolStripMenuItem> builtInItems;
+        protected List<ToolStripItem> builtInItems;
         public event EventHandler MvcEventHandler;
         protected bool DrawArrow { get; set; } = true;
         public int TitleMaxLength { get; protected set; } = 18;
@@ -52,9 +52,9 @@ namespace da2mvc.framework.menubutton.view
             Redraw();
         }
 
-        virtual protected List<ToolStripMenuItem> GetBuiltInItems()
+        virtual protected List<ToolStripItem> GetBuiltInItems()
         {
-            return new List<ToolStripMenuItem>();
+            return new List<ToolStripItem>();
         }
 
         public void DispatchEvent(BaseEventArgs args)
