@@ -3,20 +3,21 @@ using da2mvc.core.injection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 
 namespace da2mvc.core.view
 {
     public delegate void EventListener<EventArgsType>(EventArgsType args) where EventArgsType : BaseEventArgs;
 
-    public class BaseMediator<ViewType>:IMediator where ViewType : IComponent
+    public class BaseMediator<ViewType>:IMediator where ViewType : IView
     {
-        private IComponent view;
+        private IView view;
         public ViewType View { get => (ViewType)view; }
         public Dictionary<Type, MediatorEventMapping> Listeners { get; } = new Dictionary<Type, MediatorEventMapping>();
 
         virtual protected void ViewInitialized() { }
 
-        public void InitializeView(IComponent view)
+        public void InitializeView(IView view)
         {
             if (!(view is ViewType)) throw new Exception($"View must be of type {typeof(ViewType)}.");
 

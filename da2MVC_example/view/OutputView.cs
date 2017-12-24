@@ -1,4 +1,5 @@
-﻿using System;
+﻿using da2mvc.core.view;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows.Forms;
 
 namespace da2MVC_example.view
 {
-    class OutputView:Panel
+    class OutputView:Panel, IView
     {
         private Label label;
 

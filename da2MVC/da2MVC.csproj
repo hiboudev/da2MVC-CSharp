@@ -30,6 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -40,6 +42,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="core\command\ICommand.cs" />
@@ -51,6 +54,7 @@
     <Compile Include="core\injection\Injector.cs" />
     <Compile Include="core\injection\MediatorEventMapping.cs" />
     <Compile Include="core\injection\TypeMapping.cs" />
+    <Compile Include="core\view\IView.cs" />
     <Compile Include="core\view\MediatorListenerWrapper.cs" />
     <Compile Include="framework\collection\view\CollectionMediator.cs" />
     <Compile Include="framework\collection\view\ICollectionView.cs" />

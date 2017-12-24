@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 
 namespace da2mvc.core.injection
 {
@@ -17,11 +18,12 @@ namespace da2mvc.core.injection
         public static void MapType<MapType>(bool isSingleton = false) { injector.MapType(typeof(MapType), isSingleton); }
         public static void MapCommand<DispatcherType, CommandType>(int eventId) where DispatcherType : IEventDispatcher where CommandType : ICommand { injector.MapCommand(typeof(DispatcherType), eventId, typeof(CommandType)); }
         public static T GetInstance<T>() { return (T)injector.GetInstance(typeof(T)); }
+        public static object GetInstance(Type type) { return injector.GetInstance(type); }
         public static void ExecuteCommand<CommandType>(BaseEventArgs eventArgs = null) where CommandType : ICommand { injector.ExecuteCommand(typeof(CommandType), eventArgs); }
         public static void MapInstance<MapType>(object instance) { injector.MapInstance(typeof(MapType), instance); }
         public static void MapInstance(object instance) { injector.MapInstance(instance); }
-        public static void MapView<ViewType, MediatorType>(bool isSingleton = false) where ViewType : IComponent where MediatorType : IMediator { injector.MapView(typeof(ViewType), typeof(MediatorType), isSingleton); }
-        public static void MapViewInstance<ViewType, MediatorType>(object view) where ViewType : IComponent where MediatorType : IMediator { injector.MapViewInstance(typeof(ViewType), view, typeof(MediatorType)); }
+        public static void MapView<ViewType, MediatorType>(bool isSingleton = false) where ViewType : IView where MediatorType : IMediator { injector.MapView(typeof(ViewType), typeof(MediatorType), isSingleton); }
+        public static void MapViewInstance<ViewType, MediatorType>(object view) where ViewType : IView where MediatorType : IMediator { injector.MapViewInstance(typeof(ViewType), view, typeof(MediatorType)); }
         public static void MapViewInstance<MediatorType>(object view) where MediatorType : IMediator { injector.MapViewInstance(view, typeof(MediatorType)); }
 
         private class PrivateInjector
@@ -29,7 +31,7 @@ namespace da2mvc.core.injection
             private Dictionary<Type, TypeMapping> typeMappings = new Dictionary<Type, TypeMapping>();
             private Dictionary<Type, CommandMapping> commandMappings = new Dictionary<Type, CommandMapping>();
             private Dictionary<Type, Type> mediatorMappings = new Dictionary<Type, Type>();
-            private Dictionary<IComponent, IMediator> mediators = new Dictionary<IComponent, IMediator>();
+            private Dictionary<IView, IMediator> mediators = new Dictionary<IView, IMediator>();
             private Dictionary<Type, object> singletons = new Dictionary<Type, object>();
 
 
@@ -46,8 +48,8 @@ namespace da2mvc.core.injection
 
             public void MapView (Type viewType, Type mediatorType, bool isSingleton = false)
             {
-                if (!typeof(IComponent).IsAssignableFrom(viewType))
-                    throw new Exception($"Type {viewType} must implement IComponent.");
+                if (!typeof(IView).IsAssignableFrom(viewType))
+                    throw new Exception($"Type {viewType} must implement IView.");
 
                 if (!typeof(IMediator).IsAssignableFrom(mediatorType))
                     throw new Exception($"Type {mediatorType} must implement IMediator.");
@@ -65,8 +67,8 @@ namespace da2mvc.core.injection
             {
                 Type viewType = view.GetType();
 
-                if (!(view is IComponent))
-                    throw new Exception($"Type {viewType} must implement IComponent.");
+                if (!(view is IView))
+                    throw new Exception($"Type {viewType} must implement IView.");
 
                 if (!typeof(IMediator).IsAssignableFrom(mediatorType))
                     throw new Exception($"Type {mediatorType} must implement IMediator.");
@@ -219,9 +221,9 @@ namespace da2mvc.core.injection
 
             private void MapMediator(Type type, object view)
             {
-                if (view is IComponent && mediatorMappings.ContainsKey(type))
+                if (view is IView && mediatorMappings.ContainsKey(type))
                 {
-                    IComponent typedView = (IComponent)view;
+                    IView typedView = (IView)view;
                     Type mediatorType = mediatorMappings[type];
                     IMediator mediator = (IMediator)BuildInstance(mediatorType, GetCtorParameters(mediatorType));
                     mediator.InitializeView(typedView);
@@ -232,7 +234,7 @@ namespace da2mvc.core.injection
 
             private void ViewWithMediatorDisposed(object sender, EventArgs e)
             {
-                mediators.Remove((IComponent)sender);
+                mediators.Remove((IView)sender);
             }
 
             private void MapEvents(Type type, object instance)
