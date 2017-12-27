@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace R3EHUDManager_wpf.background.view
+namespace da2mvc.framework.menubutton.view
 {
     public class SettingsMenuButtonView : Button, IEventDispatcher
     {

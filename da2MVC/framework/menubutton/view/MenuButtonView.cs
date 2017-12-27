@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace R3EHUDManager_wpf.background.view
+namespace da2mvc.framework.menubutton.view
 {
     public class MenuButtonView<ModelType> : SettingsMenuButtonView, ICollectionView<ModelType> where ModelType : IModel
     {
