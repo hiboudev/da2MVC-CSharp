@@ -4,18 +4,20 @@ using da2mvc.framework.menubutton.events;
 using da2mvc.framework.model;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace da2mvc.framework.menubutton.view
+namespace R3EHUDManager_wpf.background.view
 {
     public class MenuButtonView<ModelType> : SettingsMenuButtonView, ICollectionView<ModelType> where ModelType : IModel
     {
-        private List<ToolStripMenuItem> regularItems = new List<ToolStripMenuItem>();
+        private List<MenuItem> regularItems = new List<MenuItem>();
         public static readonly int EVENT_ITEM_CLICKED = EventId.New();
+
+        public event EventHandler Disposed;
 
         public MenuButtonView()
         {
@@ -25,13 +27,13 @@ namespace da2mvc.framework.menubutton.view
         {
             foreach (var model in models)
             {
-                ToolStripMenuItem toolItem = ModelToItem(model);
+                MenuItem menuItem = ModelToItem(model);
 
-                toolItem.Click += ItemClicked;
-                regularItems.Add(toolItem);
+                menuItem.Click += ItemClicked;
+                regularItems.Add(menuItem);
             }
 
-            regularItems.Sort((x, y) => string.Compare(x.Text, y.Text));
+            regularItems.Sort((x, y) => string.Compare(x.Header.ToString(), y.Header.ToString()));
             Redraw();
         }
 
@@ -42,27 +44,28 @@ namespace da2mvc.framework.menubutton.view
                     if ((int)item.Tag == model.Id)
                     {
                         regularItems.Remove(item);
-                        DisposeItem(item);
+                        //DisposeItem(item); // TODO WPF?
                         break;
                     }
 
-            regularItems.Sort((x, y) => string.Compare(x.Text, y.Text));
+            regularItems.Sort((x, y) => string.Compare(x.Header.ToString(), y.Header.ToString()));
             Redraw();
         }
 
         public void Clear()
         {
-            foreach (var item in regularItems)
-                DisposeItem(item);
+            //foreach (var item in regularItems)
+            //    DisposeItem(item); // TODO WPF?
 
             regularItems.Clear();
             Redraw();
         }
 
-        virtual protected ToolStripMenuItem ModelToItem(ModelType model)
+        virtual protected MenuItem ModelToItem(ModelType model)
         {
-            return new ToolStripMenuItem(model.Name)
+            return new MenuItem()
             {
+                Header = model.Name,
                 Tag = model.Id,
             };
         }
@@ -70,60 +73,60 @@ namespace da2mvc.framework.menubutton.view
         /**
          * If a bitmap was created for item icon, dispose it.
          */
-        protected virtual void DisposeItem(ToolStripMenuItem item)
-        {
-            item.Dispose();
-        }
+        //protected virtual void DisposeItem(MenuItem item)
+        //{
+        //    item.Dispose(); // TODO WPF?
+        //}
 
         virtual public bool SetSelectedItem(string name)
         {
-            bool itemChecked = false;
+            MenuItem checkedItem = null;
 
-            foreach (ToolStripMenuItem item in regularItems)
+            foreach (MenuItem item in regularItems)
             {
-                item.Checked = item.Text == name;
-
-                if (item.Checked)
+                if (item.Header.ToString() == name)
                 {
-                    UpdateTitle(item.Text);
-                    itemChecked = true;
+                    item.IsChecked = true;
+                    checkedItem = item;
                 }
+                else item.IsChecked = false;
             }
 
-            if (!itemChecked) UpdateTitle(null);
+            if (checkedItem != null) UpdateTitle(checkedItem.Header.ToString());
+            else UpdateTitle(null);
 
-            return itemChecked;
+            return checkedItem != null;
         }
 
         virtual public bool SetSelectedItem(int id)
         {
-            bool itemChecked = false;
+            MenuItem checkedItem = null;
 
-            foreach (ToolStripMenuItem item in regularItems)
+            foreach (MenuItem item in regularItems)
             {
-                item.Checked = (int)item.Tag == id;
-
-                if (item.Checked)
+                if ((int)item.Tag == id)
                 {
-                    UpdateTitle(item.Text);
-                    itemChecked = true;
+                    item.IsChecked = true;
+                    checkedItem = item;
                 }
+                else item.IsChecked = false;
             }
 
-            if (!itemChecked) UpdateTitle(null);
+            if (checkedItem != null) UpdateTitle(checkedItem.Header.ToString());
+            else UpdateTitle(null);
 
-            return itemChecked;
+            return checkedItem != null;
         }
 
         private void UpdateTitle(string selectedName)
         {
             if (selectedName == null)
             {
-                Text = $"{Title}";
+                Content = $"{Title}";
                 return;
             }
 
-            base.Text = FormatTitle(selectedName);
+            Content = FormatTitle(selectedName);
         }
 
         virtual protected string FormatTitle(string selectedName)
@@ -138,42 +141,27 @@ namespace da2mvc.framework.menubutton.view
 
         override protected void Redraw()
         {
-            ContextMenuStrip.Items.Clear();
-            ContextMenuStrip.Items.AddRange(regularItems.ToArray());
+            ContextMenu.Items.Clear();
+            AddRange(regularItems.ToArray());
             if (builtInItems.Count > 0 && regularItems.Count > 0)
-                ContextMenuStrip.Items.Add(new ToolStripSeparator());
-            ContextMenuStrip.Items.AddRange(builtInItems.ToArray());
+                ContextMenu.Items.Add(new Separator());
+            AddRange(builtInItems.ToArray());
         }
 
-        protected void EnableItem(ToolStripMenuItem item, bool enabled)
+        protected void EnableItem(MenuItem item, bool enabled)
         {
-            item.Font = new Font(item.Font, enabled ? FontStyle.Regular : FontStyle.Italic);
-            item.Enabled = enabled;
+            item.FontStyle = enabled ? FontStyles.Normal : FontStyles.Italic;
+            item.IsEnabled = enabled;
         }
 
         private void ItemClicked(object sender, EventArgs e)
         {
-            DispatchEvent(new MenuButtonEventArgs(EVENT_ITEM_CLICKED, (int)((ToolStripMenuItem)sender).Tag, ((ToolStripMenuItem)sender).Text));
+            DispatchEvent(new MenuButtonEventArgs(EVENT_ITEM_CLICKED, (int)((MenuItem)sender).Tag, ((MenuItem)sender).Header.ToString()));
         }
-    }
 
-    public class ContextMenuViewItem
-    {
-        public ContextMenuViewItem(int id, string name)
+        public void Dispose()
         {
-            Name = name;
-            Id = id;
+            Disposed?.Invoke(this, EventArgs.Empty);
         }
-
-        public ContextMenuViewItem(int id, string name, Image image)
-        {
-            Name = name;
-            Image = image;
-            Id = id;
-        }
-
-        public string Name { get; }
-        public Image Image { get; }
-        public int Id { get; }
     }
 }

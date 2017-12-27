@@ -200,7 +200,9 @@ namespace da2mvc.core.injection
                     }
                     else
                     {
-                        object instanceParam = GetInstance(param.ParameterType); // TODO boucle infinie si on met le Type1 en param de Type1 ?
+                        // TODO boucle infinie si on met le Type1 en param de Type1
+                        // TODO boucle infinie si on instancie Type1 qui dépend de Type2 qui dépend de Type1.
+                        object instanceParam = GetInstance(param.ParameterType);
                         ctorParams[paramCount] = instanceParam;
                     }
                     paramCount++;

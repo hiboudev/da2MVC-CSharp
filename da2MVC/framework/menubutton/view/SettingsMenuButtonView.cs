@@ -1,19 +1,25 @@
 ﻿using da2mvc.core.events;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
-namespace da2mvc.framework.menubutton.view
+namespace R3EHUDManager_wpf.background.view
 {
     public class SettingsMenuButtonView : Button, IEventDispatcher
     {
-        protected List<ToolStripItem> builtInItems;
+        protected List<MenuItem> builtInItems;
         public event EventHandler MvcEventHandler;
         protected bool DrawArrow { get; set; } = true;
+        // Concerns only the second part of title
         public int TitleMaxLength { get; protected set; } = 18;
 
 
@@ -26,35 +32,48 @@ namespace da2mvc.framework.menubutton.view
 
         virtual protected void Redraw()
         {
-            ContextMenuStrip.Items.Clear();
-            ContextMenuStrip.Items.AddRange(builtInItems.ToArray());
+            ContextMenu.Items.Clear();
+            AddRange(builtInItems.ToArray());
         }
 
         private void InitializeUI()
         {
-            BackColor = Color.LightGray;
-            Text = Title;
-            Width = 140;
-            TextAlign = ContentAlignment.MiddleLeft;
-            // To avoid a bug when there's several instances, opening one will push focus to the next one, cause of the Enabled=false.
-            SetStyle(ControlStyles.Selectable, false);
-            // I can't find how to disable word wrapping in Button. If text is in one word and too long, it displays nothing.
-            AutoSize = true;
+            ContextMenuService.SetIsEnabled(this, false);
 
-            ContextMenuStrip = new ContextMenuStrip();
-            ContextMenuStrip.Opening += MenuOpening;
-            ContextMenuStrip.Closed += MenuClosed;
+            Content = Title;
+            //Width = 140;
+            HorizontalContentAlignment = HorizontalAlignment.Center;
+
+            // To avoid a bug when there's several instances, opening one will push focus to the next one, cause of the Enabled=false.
+            //SetStyle(ControlStyles.Selectable, false); // TODO WPF?
+
+            // I can't find how to disable word wrapping in Button. If text is in one word and too long, it displays nothing.
+            //AutoSize = true; // TODO WPF?
+
+            ContextMenu = new ContextMenu();
+            ContextMenu.Opened += MenuOpening;
+            ContextMenu.Closed += MenuClosed;
 
             builtInItems = GetBuiltInItems();
-            //foreach (ToolStripMenuItem item in builtInItems)
-            //    item.Font = new Font(item.Font, FontStyle.Italic);
+
+            Click += OnButtonClick;
 
             Redraw();
         }
 
-        virtual protected List<ToolStripItem> GetBuiltInItems()
+        private void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            return new List<ToolStripItem>();
+            if (ContextMenu.Items.Count > 0)
+            {
+                ContextMenu.Placement = PlacementMode.Relative;
+                ContextMenu.PlacementRectangle = new Rect(PointToScreen(new Point(0, ActualHeight)), new Size());
+                ContextMenu.IsOpen = true;
+            }
+        }
+
+        virtual protected List<MenuItem> GetBuiltInItems()
+        {
+            return new List<MenuItem>();
         }
 
         public void DispatchEvent(BaseEventArgs args)
@@ -62,37 +81,20 @@ namespace da2mvc.framework.menubutton.view
             MvcEventHandler?.Invoke(this, args);
         }
 
-        private void MenuClosed(object sender, ToolStripDropDownClosedEventArgs e)
+        private void MenuClosed(object sender, RoutedEventArgs e)
         {
-            Enabled = true;
+            IsEnabled = true;
         }
 
         private void MenuOpening(object sender, EventArgs e)
         {
-            Enabled = false;
+            IsEnabled = false;
         }
 
-        protected override void OnMouseDown(MouseEventArgs mevent)
+        protected void AddRange(MenuItem[] items)
         {
-            base.OnMouseDown(mevent);
-
-            if (ContextMenuStrip.Items.Count > 0)
-                ContextMenuStrip.Show(this, new Point(Location.X, Height));
-        }
-
-        protected override void OnPaint(PaintEventArgs pevent)
-        {
-            base.OnPaint(pevent);
-
-            if (DrawArrow && ContextMenuStrip != null)
-            {
-                int arrowX = ClientRectangle.Width - 14;
-                int arrowY = ClientRectangle.Height / 2 - 1;
-
-                Brush brush = Enabled ? SystemBrushes.ControlText : SystemBrushes.ButtonShadow;
-                Point[] arrows = new Point[] { new Point(arrowX, arrowY), new Point(arrowX + 7, arrowY), new Point(arrowX + 3, arrowY + 4) };
-                pevent.Graphics.FillPolygon(brush, arrows);
-            }
+            foreach (var item in items)
+                ContextMenu.Items.Add(item);
         }
     }
 }
