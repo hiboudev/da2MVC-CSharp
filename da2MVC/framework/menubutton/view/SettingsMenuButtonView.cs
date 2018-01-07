@@ -42,7 +42,7 @@ namespace da2mvc.framework.menubutton.view
 
             Content = Title;
             //Width = 140;
-            HorizontalContentAlignment = HorizontalAlignment.Center;
+            HorizontalContentAlignment = HorizontalAlignment.Left;
 
             // To avoid a bug when there's several instances, opening one will push focus to the next one, cause of the Enabled=false.
             //SetStyle(ControlStyles.Selectable, false); // TODO WPF?
@@ -94,7 +94,15 @@ namespace da2mvc.framework.menubutton.view
         protected void AddRange(MenuItem[] items)
         {
             foreach (var item in items)
-                ContextMenu.Items.Add(item);
+            {
+                if (item is MenuItemSeparator)
+                    ContextMenu.Items.Add(new Separator());
+                else
+                    ContextMenu.Items.Add(item);
+            }
         }
     }
+
+    // To be able to add a separator in the MenuItem list from sub-classes.
+    public class MenuItemSeparator : MenuItem { }
 }

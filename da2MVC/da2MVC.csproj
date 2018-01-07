@@ -55,18 +55,17 @@
     <Compile Include="core\injection\TypeMapping.cs" />
     <Compile Include="core\view\IView.cs" />
     <Compile Include="core\view\MediatorListenerWrapper.cs" />
+    <Compile Include="framework\application\view\AbstractAppView.cs" />
+    <Compile Include="framework\application\view\ModalWindow.cs" />
     <Compile Include="framework\collection\view\CollectionMediator.cs" />
     <Compile Include="framework\collection\view\ICollectionView.cs" />
     <Compile Include="framework\collection\model\CollectionModel.cs" />
     <Compile Include="framework\collection\events\CollectionEventArgs.cs" />
     <Compile Include="framework\menubutton\events\MenuButtonEventArgs.cs" />
-    <Compile Include="framework\menubutton\view\MenuButtonView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="framework\menubutton\view\SettingsMenuButtonView.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="framework\menubutton\view\MenuButtonView.cs" />
+    <Compile Include="framework\menubutton\view\SettingsMenuButtonView.cs" />
     <Compile Include="framework\model\IModel.cs" />
+    <Compile Include="framework\utils\WpfUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="core\view\BaseMediator.cs" />
     <Compile Include="core\view\IMediator.cs" />

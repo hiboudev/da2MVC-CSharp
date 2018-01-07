@@ -16,6 +16,7 @@ namespace da2mvc.core.injection
 
         public static void MapType<MapType, MapToType>(bool isSingleton = false) { injector.MapType(typeof(MapType), typeof(MapToType), isSingleton); }
         public static void MapType<MapType>(bool isSingleton = false) { injector.MapType(typeof(MapType), isSingleton); }
+        public static void MapType(Type type, bool isSingleton = false) { injector.MapType(type, isSingleton); }
         public static void MapCommand<DispatcherType, CommandType>(int eventId) where DispatcherType : IEventDispatcher where CommandType : ICommand { injector.MapCommand(typeof(DispatcherType), eventId, typeof(CommandType)); }
         public static T GetInstance<T>() { return (T)injector.GetInstance(typeof(T)); }
         public static object GetInstance(Type type) { return injector.GetInstance(type); }
