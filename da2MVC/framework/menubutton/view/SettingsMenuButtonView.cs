@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace da2mvc.framework.menubutton.view
@@ -22,12 +26,10 @@ namespace da2mvc.framework.menubutton.view
         // Concerns only the second part of title
         public int TitleMaxLength { get; protected set; } = 18;
 
-
         public SettingsMenuButtonView()
         {
             InitializeUI();
         }
-
         virtual protected string Title => "Menu";
 
         virtual protected void Redraw()
@@ -38,11 +40,13 @@ namespace da2mvc.framework.menubutton.view
 
         private void InitializeUI()
         {
+            ContentTemplate = new ButtonContentTemplate();
+            HorizontalContentAlignment = HorizontalAlignment.Stretch;
+
             ContextMenuService.SetIsEnabled(this, false);
 
             Content = Title;
             //Width = 140;
-            HorizontalContentAlignment = HorizontalAlignment.Left;
 
             // To avoid a bug when there's several instances, opening one will push focus to the next one, cause of the Enabled=false.
             //SetStyle(ControlStyles.Selectable, false); // TODO WPF?
@@ -105,4 +109,56 @@ namespace da2mvc.framework.menubutton.view
 
     // To be able to add a separator in the MenuItem list from sub-classes.
     public class MenuItemSeparator : MenuItem { }
+
+    class ButtonContentTemplate : DataTemplate
+    {
+        public ButtonContentTemplate()
+        {
+            var panel = new FrameworkElementFactory(typeof(DockPanel));
+
+            var text = new FrameworkElementFactory(typeof(TextBlock));
+            text.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+            text.SetBinding(TextBlock.TextProperty, new Binding());
+
+            var icon = new FrameworkElementFactory(typeof(MenuButtonIcon));
+            icon.SetValue(FrameworkElement.WidthProperty, 8.0);
+            icon.SetValue(FrameworkElement.HeightProperty, 6.0);
+            icon.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
+            icon.SetValue(DockPanel.DockProperty, Dock.Right);
+
+            panel.AppendChild(icon);
+            panel.AppendChild(text);
+
+            VisualTree = panel;
+        }
+    }
+
+
+    class MenuButtonIcon : FrameworkElement
+    {
+        public MenuButtonIcon()
+        {
+            MinWidth = MinHeight = 5;
+        }
+
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            base.OnRender(drawingContext);
+
+            StreamGeometry streamGeometry = new StreamGeometry();
+            using (StreamGeometryContext geometryContext = streamGeometry.Open())
+            {
+                geometryContext.BeginFigure(new Point(), true, true);
+                PointCollection points = new PointCollection
+                                             {
+                                                 new Point(RenderSize.Width, 0),
+                                                 new Point(RenderSize.Width / 2, RenderSize.Height)
+                                             };
+                geometryContext.PolyLineTo(points, true, true);
+            }
+
+            drawingContext.DrawGeometry(IsEnabled ? new SolidColorBrush(Color.FromArgb(255, 70, 70, 70)) : Brushes.DarkGray, null, streamGeometry);
+
+        }
+    }
 }
