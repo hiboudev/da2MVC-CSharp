@@ -131,11 +131,6 @@ namespace da2mvc.framework.menubutton.view
 
         virtual protected string FormatTitle(string selectedName)
         {
-            int maxLength = TitleMaxLength;
-
-            if (selectedName.Length > maxLength)
-                selectedName = selectedName.Substring(0, maxLength) + "...";
-
             return $"{Title}: {selectedName}";
         }
 

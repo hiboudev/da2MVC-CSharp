@@ -23,8 +23,6 @@ namespace da2mvc.framework.menubutton.view
         protected List<MenuItem> builtInItems;
         public event EventHandler MvcEventHandler;
         protected bool DrawArrow { get; set; } = true;
-        // Concerns only the second part of title
-        public int TitleMaxLength { get; protected set; } = 18;
 
         public SettingsMenuButtonView()
         {
@@ -119,6 +117,7 @@ namespace da2mvc.framework.menubutton.view
             var text = new FrameworkElementFactory(typeof(TextBlock));
             text.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
             text.SetBinding(TextBlock.TextProperty, new Binding());
+            text.SetValue(TextBlock.TextTrimmingProperty, TextTrimming.CharacterEllipsis);
 
             var icon = new FrameworkElementFactory(typeof(MenuButtonIcon));
             icon.SetValue(FrameworkElement.WidthProperty, 8.0);
